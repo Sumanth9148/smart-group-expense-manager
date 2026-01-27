@@ -1,0 +1,15 @@
+# Core
+mysql-connector-python==8.3.0
+
+# Async & background tasks
+asyncio
+
+# CLI
+argparse
+
+# Logging
+python-json-logger==2.0.7
+
+# Testing
+pytest==8.0.0
+pytest-cov==4.1.0

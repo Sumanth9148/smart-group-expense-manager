@@ -1,0 +1,23 @@
+from uuid import uuid4
+from app.domain.entities.expense import Expense
+from app.domain.split_strategies.custom import CustomSplitStrategy
+
+
+def test_custom_split(user_a, user_b):
+    strategy = CustomSplitStrategy({
+        user_a: 700,
+        user_b: 300
+    })
+
+    expense = Expense(
+        expense_id=uuid4(),
+        paid_by=user_a,
+        amount=1000,
+        participants=[user_a, user_b],
+        split_strategy=strategy
+    )
+
+    result = expense.split()
+
+    assert result[user_a] == 700
+    assert result[user_b] == 300
