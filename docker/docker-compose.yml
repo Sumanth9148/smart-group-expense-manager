@@ -10,15 +10,26 @@ services:
       MYSQL_DATABASE: expense_manager
       MYSQL_USER: appuser
       MYSQL_PASSWORD: apppass
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   app:
     image: localhost/docker_app:latest
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     container_name: expense_app
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     environment:
       DB_HOST: mysql
       DB_USER: appuser
@@ -27,6 +38,8 @@ services:
     stdin_open: true
     tty: true
     command: python -m app.interface.cli
+    volumes:
+      - ../logs:/app/logs
 
 volumes:
   mysql_data:

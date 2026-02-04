@@ -1,6 +1,6 @@
-from uuid import uuid4, UUID
-from typing import List, Dict
+from typing import List, Dict, Any
 from app.domain.entities.expense import Expense
+from app.domain.entities.user import User
 from app.domain.repositories.expense_repository import ExpenseRepository
 from app.domain.repositories.group_repository import GroupRepository
 from app.domain.repositories.user_repository import UserRepository
@@ -28,9 +28,9 @@ class ExpenseService:
 
     def add_expense(
         self,
-        group_id: UUID,
-        paid_by_id: UUID,
-        participant_ids: List[UUID],
+        group_id: int,
+        paid_by_id: int,
+        participant_ids: List[int],
         amount: float,
         split_type: SplitType,
         split_data: Dict | None = None
@@ -51,16 +51,51 @@ class ExpenseService:
                 raise ValueError(f"User {uid} not found")
             participants.append(user)
 
-        strategy = SplitStrategyFactory.create(split_type, split_data)
+        normalized_split_data = None
+        if split_data:
+            normalized_split_data = self._normalize_split_data(split_data, participants)
+
+        strategy = SplitStrategyFactory.create(split_type, normalized_split_data)
 
         expense = Expense(
-            expense_id=uuid4(),
+            expense_id=None,
             paid_by=paid_by,
             amount=amount,
             participants=participants,
             split_strategy=strategy
         )
 
-        self._expense_repo.save(expense, group_id)
-        logger.info(f"Adding expense | group={group_id} | amount={amount} | split={split_type}")
-        return expense
+        saved = self._expense_repo.save(expense, group_id)
+        logger.info(f"Adding expense | group={group_id} | amount={amount} | split={split_type.value}")  
+        return saved
+
+    def list_expenses(self, group_id: int) -> List[Expense]:
+        group = self._group_repo.get_by_id(group_id)
+        if not group:
+            raise ValueError("Group not found")
+
+        return self._expense_repo.get_by_group(group_id)
+
+    def _normalize_split_data(
+        self,
+        split_data: Dict[Any, float],
+        participants: List[User]
+    ) -> Dict[User, float]:
+        participants_index = {user.id: user for user in participants}
+        normalized: Dict[User, float] = {}
+
+        for identifier, value in split_data.items():
+            if isinstance(identifier, User):
+                participant = identifier
+            else:
+                participant_id = int(identifier)
+
+                participant = participants_index.get(participant_id)
+                if not participant:
+                    raise ValueError(
+                        f"Split data references unknown participant: {identifier}"
+                    )
+
+            normalized[participant] = float(value)
+
+        return normalized

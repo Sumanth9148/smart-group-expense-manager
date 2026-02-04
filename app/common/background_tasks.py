@@ -1,7 +1,10 @@
 import asyncio
+import asyncio
 import logging
 from app.services.settlement_service import SettlementService
 from app.domain.repositories.group_repository import GroupRepository
+
+logger = logging.getLogger(__name__)  
 
 
 async def periodic_balance_logger(
@@ -13,25 +16,29 @@ async def periodic_balance_logger(
     Periodically recompute balances for all groups
     and log a short summary.
     """
-    logging.info("Background balance logger started")
+    logger.info(f"Background balance logger started (interval={interval_seconds}s)")  
 
-    while True:
-        try:
-            groups = group_repository.get_all()
+    try:
+        while True:
+            try:
+                groups = group_repository.get_all() or []  
 
-            for group in groups:
-                balances = settlement_service.get_balances(group.id)
+                for group in groups:
+                    balances = settlement_service.get_balances(group.id)
 
-                summary = ", ".join(
-                    f"{user.name}: {balance:.2f}"
-                    for user, balance in balances.items()
-                )
+                    summary = ", ".join(
+                        f"{user.name}: {balance:.2f}"
+                        for user, balance in balances.items()
+                    ) or "no balances"  
 
-                logging.info(
-                    f"[Group: {group.name} | {group.id}] Balances → {summary}"
-                )
+                    logger.info(
+                        f"[Group: {group.name} | {group.id}] Balances → {summary}"
+                    )
 
-        except Exception as exc:
-            logging.exception("Error while recomputing balances", exc_info=exc)
+            except Exception:
+                logger.exception("Error while recomputing balances")  
 
-        await asyncio.sleep(interval_seconds)
+            await asyncio.sleep(interval_seconds)
+    except asyncio.CancelledError:  
+        logger.info("Background balance logger stopped")
+        raise

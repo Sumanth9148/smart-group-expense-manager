@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from uuid import UUID
 from typing import Optional, List
 from app.domain.entities.group import Group
 
@@ -7,11 +6,11 @@ from app.domain.entities.group import Group
 class GroupRepository(ABC):
 
     @abstractmethod
-    def save(self, group: Group) -> None:
+    def save(self, group: Group) -> Group:
         pass
 
     @abstractmethod
-    def get_by_id(self, group_id: UUID) -> Optional[Group]:
+    def get_by_id(self, group_id: int) -> Optional[Group]:
         pass
 
     @abstractmethod

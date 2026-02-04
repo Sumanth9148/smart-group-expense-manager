@@ -1,8 +1,9 @@
 from dataclasses import dataclass
-from uuid import UUID
+from typing import Optional
 
 
 @dataclass(frozen=True)
 class User:
-    id: UUID
+    id: Optional[int]
     name: str
+    email: str

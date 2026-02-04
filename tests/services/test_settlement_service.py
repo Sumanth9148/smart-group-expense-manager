@@ -1,4 +1,3 @@
-from uuid import uuid4
 from unittest.mock import Mock
 from app.services.settlement_service import SettlementService
 from app.domain.domain_services.settlement_calculator import SettlementCalculator
@@ -6,7 +5,7 @@ from app.domain.entities.group import Group
 
 
 def test_get_balances():
-    group_id = uuid4()
+    group_id = 1
     group = Group(group_id, "Trip")
 
     group_repo = Mock()

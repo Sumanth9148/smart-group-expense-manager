@@ -1,4 +1,3 @@
-from uuid import uuid4
 from app.domain.entities.expense import Expense
 from app.domain.split_strategies.percentage import PercentageSplitStrategy
 
@@ -10,7 +9,7 @@ def test_percentage_split(user_a, user_b):
     })
 
     expense = Expense(
-        expense_id=uuid4(),
+        expense_id=1,
         paid_by=user_a,
         amount=1000,
         participants=[user_a, user_b],

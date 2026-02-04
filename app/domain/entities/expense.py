@@ -1,23 +1,29 @@
-from typing import Dict
-from uuid import UUID
+from typing import Dict, List, Optional
+from datetime import date
+from app.domain.entities.user import User
 from app.domain.split_strategies.base import SplitStrategy
-
 
 class Expense:
     def __init__(
         self,
-        id: UUID,
+        expense_id: Optional[int],
+        paid_by: User,
         amount: float,
-        paid_by: UUID,
-        participants: list[UUID],
-        split_strategy: SplitStrategy
+        participants: List[User],
+        split_strategy: SplitStrategy,
+        description: str = "",
+        expense_date: Optional[date] = None,
+        split_type: str = "",
     ):
-        self.id = id
-        self.amount = amount
+        self.id = expense_id
         self.paid_by = paid_by
+        self.amount = amount
         self.participants = participants
         self.split_strategy = split_strategy
+        self.description = description
+        self.expense_date = expense_date or date.today()
+        self.split_type = split_type or split_strategy.__class__.__name__
 
-    def split(self) -> Dict[UUID, float]:
+    def split(self) -> Dict[User, float]:
         return self.split_strategy.split(self)
 

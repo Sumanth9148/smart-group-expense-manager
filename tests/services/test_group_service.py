@@ -1,4 +1,3 @@
-from uuid import uuid4
 from unittest.mock import Mock
 from app.services.group_service import GroupService
 from app.domain.entities.group import Group
@@ -6,11 +5,11 @@ from app.domain.entities.user import User
 
 
 def test_add_member():
-    group_id = uuid4()
-    user_id = uuid4()
+    group_id = 1
+    user_id = 2
 
     group = Group(group_id, "Test Group")
-    user = User(user_id, "Alice")
+    user = User(user_id, "Alice", "alice@example.com")
 
     group_repo = Mock()
     user_repo = Mock()

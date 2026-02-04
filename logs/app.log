@@ -1,0 +1,6 @@
+2026-02-04 11:30:45,381 | INFO | root | Logging initialized
+2026-02-04 11:34:05,220 | INFO | app.services.expense_service | Adding expense | group=1 | amount=200.0 | split=percentage
+2026-02-04 11:35:18,641 | INFO | app.services.expense_service | Adding expense | group=1 | amount=300.0 | split=custom
+2026-02-04 11:36:50,961 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-04 11:36:51,000 | INFO | app.common.background_tasks | [Group: banni boys | 1] Balances → sam: 600.00, vishal: -600.00
+2026-02-04 11:36:51,010 | INFO | app.common.background_tasks | Background balance logger stopped
