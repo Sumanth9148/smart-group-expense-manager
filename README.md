@@ -77,7 +77,7 @@ Prerequisites
 - Python 3.11 if you plan to run tests outside containers.
 
 
-Setup and Installation (WSL)
+Run Project (WSL)
 -------------------------------
 1. **Enter WSL and locate the project**
   ```bash
@@ -212,12 +212,7 @@ Common Commands
 Future Enhancements
 -------------------
 - **Travel (multi‑currency)**: Useful for international trips where people pay in different currencies. The app can convert and settle in one currency.
-- **Mobile/Web App**: Expose a REST API (FastAPI) and build a React/Flutter client for roommates, trips, and teams.
 
 
-Interview Ready Notes
----------------------
-- Walk through the architecture diagram above and highlight SOLID/pattern usage.
-- Demo the sample CLI flow (screenshare your WSL terminal).
-- Emphasize reproducibility: any Windows machine with WSL + Podman can run the same steps.
-- Reference tests (split strategies, services) to prove reliability and maintainability.
+
+
