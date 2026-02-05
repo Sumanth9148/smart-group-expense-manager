@@ -1,3 +1,5 @@
+"""MySQL implementation for expense repository."""
+
 from typing import List, Dict
 from app.domain.entities.expense import Expense
 from app.domain.entities.user import User
@@ -7,11 +9,14 @@ from .db import MySQLDatabase
 
 
 class ExpenseRepositoryMySQL(ExpenseRepository):
+    """Handles expense persistence in MySQL."""
 
     def __init__(self, db: MySQLDatabase):
+        """Create repo with DB helper."""
         self._db = db
 
     def save(self, expense: Expense, group_id: int) -> Expense:
+        """Insert an expense and its splits."""
         conn = self._db.connect()
         cursor = conn.cursor()
 
@@ -47,6 +52,7 @@ class ExpenseRepositoryMySQL(ExpenseRepository):
         return expense
 
     def get_by_group(self, group_id: int) -> List[Expense]:
+        """Return all expenses for a group."""
         conn = self._db.connect()
         cursor = conn.cursor()
 
@@ -103,6 +109,7 @@ class ExpenseRepositoryMySQL(ExpenseRepository):
         expense_id: int,
         cache: Dict[int, User]
     ) -> tuple[List[User], Dict[User, float]]:
+        """Load participants and amounts for an expense."""
         cursor = conn.cursor()
         try:
             cursor.execute(

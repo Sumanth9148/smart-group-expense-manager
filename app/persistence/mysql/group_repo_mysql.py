@@ -1,3 +1,5 @@
+"""MySQL implementation for group repository."""
+
 from typing import Optional, List, Dict
 from app.domain.entities.group import Group
 from app.domain.entities.user import User
@@ -8,11 +10,14 @@ from .db import MySQLDatabase
 
 
 class GroupRepositoryMySQL(GroupRepository):
+    """Handles group persistence in MySQL."""
 
     def __init__(self, db: MySQLDatabase):
+        """Create repo with DB helper."""
         self._db = db
 
     def save(self, group: Group) -> Group:
+        """Insert or update a group and its members."""
         conn = self._db.connect()
         cursor = conn.cursor()
 
@@ -57,12 +62,7 @@ class GroupRepositoryMySQL(GroupRepository):
             conn.close()
 
     def get_by_id(self, group_id: int) -> Optional[Group]:
-        """
-        Minimal rehydration:
-        - group id
-        - group name
-        (members & expenses will be added later)
-        """
+        """Fetch a group with members and expenses."""
         conn = self._db.connect()
         cursor = conn.cursor()
 
@@ -90,10 +90,7 @@ class GroupRepositoryMySQL(GroupRepository):
             conn.close()
 
     def get_all(self) -> List[Group]:
-        """
-        Used by background tasks.
-        Read-only, lightweight.
-        """
+        """Return all groups (read-only)."""
         conn = self._db.connect()
         cursor = conn.cursor()
 
@@ -109,6 +106,7 @@ class GroupRepositoryMySQL(GroupRepository):
         ]
 
     def _fetch_members(self, conn, group_id: int) -> List[User]:
+        """Load group members for a given group id."""
         cursor = conn.cursor()
         rows: List[tuple] = []
         try:
@@ -128,6 +126,7 @@ class GroupRepositoryMySQL(GroupRepository):
         return [User(int(row[0]), row[1], row[2]) for row in rows]
 
     def _fetch_expenses(self, conn, group_id: int) -> List[Expense]:
+        """Load expenses for a given group id."""
         cursor = conn.cursor()
         rows: List[tuple] = []
         try:
@@ -178,6 +177,7 @@ class GroupRepositoryMySQL(GroupRepository):
         expense_id: int,
         cache: Dict[int, User]
     ) -> tuple[List[User], Dict[User, float]]:
+        """Load participants and amounts for an expense."""
         cursor = conn.cursor()
         rows: List[tuple] = []
         try:

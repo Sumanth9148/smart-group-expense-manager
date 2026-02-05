@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1.4
+# Build the Python CLI app image
 FROM python:3.11-slim
 
 WORKDIR /app

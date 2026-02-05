@@ -1,3 +1,5 @@
+"""Settlement service for balances and suggestions."""
+
 from typing import Dict
 from app.domain.domain_services.settlement_calculator import SettlementCalculator
 from app.domain.entities.user import User
@@ -5,16 +7,19 @@ from app.domain.repositories.group_repository import GroupRepository
 
 
 class SettlementService:
+    """Handles balance calculation and settlement suggestions."""
 
     def __init__(
         self,
         group_repository: GroupRepository,
         calculator: SettlementCalculator
     ):
+        """Create the service with repo and calculator."""
         self._group_repo = group_repository
         self._calculator = calculator
 
     def get_balances(self, group_id: int) -> Dict[User, float]:
+        """Return net balances for a group."""
         group = self._group_repo.get_by_id(group_id)
         if not group:
             raise ValueError("Group not found")
@@ -22,6 +27,7 @@ class SettlementService:
         return self._calculator.calculate_balances(group)
 
     def get_settlement_suggestions(self, group_id: int) -> list[tuple[User, User, float]]:
+        """Return payment suggestions to settle balances."""
         balances = self.get_balances(group_id)
 
         debtors: list[tuple[User, float]] = []

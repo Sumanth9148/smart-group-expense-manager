@@ -1,3 +1,5 @@
+"""Menu handlers that map CLI actions to services."""
+
 from typing import Dict, List, Optional
 
 from app.services.user_service import UserService
@@ -8,6 +10,7 @@ from app.domain.split_strategies.factory import SplitType
 
 
 class MenuHandlers:
+    """Thin interface layer; each handler calls a service."""
     """
     Thin interface layer.
     One handler method == one service call.
@@ -20,6 +23,7 @@ class MenuHandlers:
         expense_service: ExpenseService,
         settlement_service: SettlementService,
     ):
+        """Store service dependencies for handlers."""
         self.user_service = user_service
         self.group_service = group_service
         self.expense_service = expense_service
@@ -28,63 +32,69 @@ class MenuHandlers:
     # -------------------- USER --------------------
 
     def create_user(self, name: str) -> None:
+        """Create a user via the user service."""
         try:
             self.user_service.create_user(name)
-            print("✅ User created successfully")
+            print(" User created successfully")
         except Exception as e:
-            print(f"❌ Failed to create user: {e}")
+            print(f" Failed to create user: {e}")
 
     def list_users(self) -> None:
+        """List all users via the user service."""
         try:
             users = self.user_service.list_users()
             if not users:
-                print("ℹ️ No users found")
+                print(" No users found")
                 return
 
             for user in users:
                 print(f"- {user.id} | {user.name}")
         except Exception as e:
-            print(f"❌ Failed to list users: {e}")
+            print(f" Failed to list users: {e}")
 
     # -------------------- GROUP --------------------
 
     def create_group(self, name: str) -> None:
+        """Create a group via the group service."""
         try:
             self.group_service.create_group(name)
-            print("✅ Group created successfully")
+            print(" Group created successfully")
         except Exception as e:
-            print(f"❌ Failed to create group: {e}")
+            print(f" Failed to create group: {e}")
 
     def add_user_to_group(self, group_id: int, user_id: int) -> None:
+        """Add a user to a group via the group service."""
         try:
             self.group_service.add_user_to_group(group_id, user_id)
-            print("✅ User added to group")
+            print(" User added to group")
         except Exception as e:
-            print(f"❌ Failed to add user to group: {e}")
+            print(f" Failed to add user to group: {e}")
 
     def list_groups(self) -> None:
+        """List all groups via the group service."""
         try:
             groups = self.group_service.list_groups()
             if not groups:
-                print("ℹ️ No groups found")
+                print(" No groups found")
                 return
 
             for group in groups:
                 print(f"- {group.id} | {group.name}")
         except Exception as e:
-            print(f"❌ Failed to list groups: {e}")
+            print(f" Failed to list groups: {e}")
 
     def view_group_members(self, group_id: int) -> None:
+        """List members in a group via the group service."""
         try:
             members = self.group_service.get_group_members(group_id)
             if not members:
-                print("ℹ️ No members in this group")
+                print(" No members in this group")
                 return
 
             for user in members:
                 print(f"- {user.id} | {user.name}")
         except Exception as e:
-            print(f"❌ Failed to fetch group members: {e}")
+            print(f" Failed to fetch group members: {e}")
 
 
 
@@ -99,6 +109,7 @@ class MenuHandlers:
         split_type: str,
         split_data: Optional[Dict] = None,
     ) -> None:
+        """Add an expense via the expense service."""
         try:
             exp = self.expense_service.add_expense(
                 group_id=group_id,
@@ -108,45 +119,48 @@ class MenuHandlers:
                 split_type=SplitType(split_type),
                 split_data=split_data,
             )
-            print(f"✅ Expense added successfully (id={exp.id}, amount={exp.amount})")
+            print(f" Expense added successfully (id={exp.id}, amount={exp.amount})")
         except Exception as e:
-            print(f"❌ Failed to add expense: {e}")
+            print(f" Failed to add expense: {e}")
 
     def list_expenses(self, group_id: int) -> None:
+        """List expenses for a group via the expense service."""
         try:
             expenses = self.expense_service.list_expenses(group_id)
             if not expenses:
-                print("ℹ️ No expenses found")
+                print(" No expenses found")
                 return
 
             for exp in expenses:
                 print(f"- {exp.id} | {exp.amount:.2f} | paid by {exp.paid_by.name} ({exp.paid_by.id})")
         except Exception as e:
-            print(f"❌ Failed to list expenses: {e}")
+            print(f" Failed to list expenses: {e}")
 
     # -------------------- SETTLEMENT --------------------
 
     def view_balances(self, group_id: int) -> None:
+        """Show balances for a group via the settlement service."""
         try:
             balances = self.settlement_service.get_balances(group_id)
             if not balances:
-                print("ℹ️ No balances available")
+                print(" No balances available")
                 return
 
             for user, amount in balances.items():
                 # balances in your CLI are {User: float}
                 print(f"- {user.name} ({user.id}): {amount:.2f}")
         except Exception as e:
-            print(f"❌ Failed to compute balances: {e}")
+            print(f" Failed to compute balances: {e}")
 
     def generate_settlement(self, group_id: int) -> None:
+        """Show settlement suggestions for a group."""
         try:
             suggestions = self.settlement_service.get_settlement_suggestions(group_id)
             if not suggestions:
-                print("ℹ️ No settlements required")
+                print(" No settlements required")
                 return
 
             for payer, receiver, amount in suggestions:
                 print(f"- {payer.name} pays {receiver.name} amount {amount:.2f}")
         except Exception as e:
-            print(f"❌ Failed to generate settlement: {e}")
+            print(f" Failed to generate settlement: {e}")

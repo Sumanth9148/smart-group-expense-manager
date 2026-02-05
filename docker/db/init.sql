@@ -1,4 +1,5 @@
 -- Re-runnable init (drops in dependency order)
+-- Creates core tables for users, groups, expenses, and splits
 DROP TABLE IF EXISTS expense_splits;
 DROP TABLE IF EXISTS expenses;
 DROP TABLE IF EXISTS group_members;

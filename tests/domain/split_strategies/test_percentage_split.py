@@ -1,8 +1,11 @@
+"""Tests for percentage split strategy."""
+
 from app.domain.entities.expense import Expense
 from app.domain.split_strategies.percentage import PercentageSplitStrategy
 
 
 def test_percentage_split(user_a, user_b):
+    """Verify percentage split uses given ratios."""
     strategy = PercentageSplitStrategy({
         user_a: 60,
         user_b: 40

@@ -1,3 +1,5 @@
+"""Tests for expense service."""
+
 from unittest.mock import Mock
 from app.services.expense_service import ExpenseService
 from app.domain.entities.group import Group
@@ -6,6 +8,7 @@ from app.domain.split_strategies.factory import SplitType
 
 
 def test_add_expense_equal_split():
+    """Verify adding an equal split expense."""
     group_id = 1
     user = User(1, "Alice", "alice@example.com")
 

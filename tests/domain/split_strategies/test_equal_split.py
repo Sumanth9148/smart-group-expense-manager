@@ -1,8 +1,11 @@
+"""Tests for equal split strategy."""
+
 from app.domain.entities.expense import Expense
 from app.domain.split_strategies.equal import EqualSplitStrategy
 
 
 def test_equal_split(user_a, user_b, user_c):
+    """Verify equal split divides amount evenly."""
     expense = Expense(
         expense_id=1,
         paid_by=user_a,

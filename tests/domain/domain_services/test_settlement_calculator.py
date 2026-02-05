@@ -1,3 +1,5 @@
+"""Tests for settlement calculator."""
+
 from app.domain.entities.group import Group
 from app.domain.entities.expense import Expense
 from app.domain.domain_services.settlement_calculator import SettlementCalculator
@@ -5,6 +7,7 @@ from app.domain.split_strategies.equal import EqualSplitStrategy
 
 
 def test_settlement_calculation(user_a, user_b):
+    """Verify balances after one equal split expense."""
     group = Group(group_id=1, name="Trip")
 
     group.add_member(user_a)

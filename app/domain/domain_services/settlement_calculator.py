@@ -1,11 +1,15 @@
+"""Settlement calculations for group balances."""
+
 from typing import Dict
 from ..entities.group import Group
 from ..entities.user import User
 
 
 class SettlementCalculator:
+    """Compute balances based on group expenses."""
 
     def calculate_balances(self, group: Group) -> Dict[User, float]:
+        """Return each user's net balance in the group."""
         balances: Dict[User, float] = {}
 
         for expense in group.expenses:

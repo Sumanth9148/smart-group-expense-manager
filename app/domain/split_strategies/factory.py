@@ -1,3 +1,5 @@
+"""Factory for building split strategy instances."""
+
 from typing import Dict
 from enum import Enum
 from ..entities.user import User
@@ -8,18 +10,21 @@ from .custom import CustomSplitStrategy
 
 
 class SplitType(Enum):
+    """Allowed split type identifiers."""
     EQUAL = "equal"
     PERCENTAGE = "percentage"
     CUSTOM = "custom"
 
 
 class SplitStrategyFactory:
+    """Create split strategies based on input type."""
 
     @staticmethod
     def create(
         split_type: SplitType,
         data: Dict[User, float] | None = None
     ) -> SplitStrategy:
+        """Return the appropriate split strategy instance."""
 
         if split_type == SplitType.EQUAL:
             return EqualSplitStrategy()

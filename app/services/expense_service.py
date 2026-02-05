@@ -1,3 +1,5 @@
+"""Expense service for business logic."""
+
 from typing import List, Dict, Any
 from app.domain.entities.expense import Expense
 from app.domain.entities.user import User
@@ -15,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class ExpenseService:
+    """Handles expense-related operations."""
 
     def __init__(
         self,
@@ -22,6 +25,7 @@ class ExpenseService:
         group_repository: GroupRepository,
         user_repository: UserRepository
     ):
+        """Create the service with repositories."""
         self._expense_repo = expense_repository
         self._group_repo = group_repository
         self._user_repo = user_repository
@@ -35,6 +39,7 @@ class ExpenseService:
         split_type: SplitType,
         split_data: Dict | None = None
     ) -> Expense:
+        """Create and save a new expense for a group."""
 
         group = self._group_repo.get_by_id(group_id)
         if not group:
@@ -70,6 +75,7 @@ class ExpenseService:
         return saved
 
     def list_expenses(self, group_id: int) -> List[Expense]:
+        """Return expenses for a group."""
         group = self._group_repo.get_by_id(group_id)
         if not group:
             raise ValueError("Group not found")
@@ -81,6 +87,7 @@ class ExpenseService:
         split_data: Dict[Any, float],
         participants: List[User]
     ) -> Dict[User, float]:
+        """Normalize split data to a user->amount map."""
         participants_index = {user.id: user for user in participants}
         normalized: Dict[User, float] = {}
 

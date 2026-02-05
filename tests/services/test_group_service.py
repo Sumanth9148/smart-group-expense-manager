@@ -1,3 +1,5 @@
+"""Tests for group service."""
+
 from unittest.mock import Mock
 from app.services.group_service import GroupService
 from app.domain.entities.group import Group
@@ -5,6 +7,7 @@ from app.domain.entities.user import User
 
 
 def test_add_member():
+    """Verify adding a member to a group."""
     group_id = 1
     user_id = 2
 

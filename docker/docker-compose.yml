@@ -1,4 +1,5 @@
 version: "3.9"
+# Compose file for app + MySQL services
 
 services:
   mysql:

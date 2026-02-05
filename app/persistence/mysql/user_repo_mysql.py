@@ -1,3 +1,5 @@
+"""MySQL implementation for user repository."""
+
 from typing import Optional
 from app.domain.entities.user import User
 from app.domain.repositories.user_repository import UserRepository
@@ -5,11 +7,14 @@ from .db import MySQLDatabase
 
 
 class UserRepositoryMySQL(UserRepository):
+    """Handles user persistence in MySQL."""
 
     def __init__(self, db: MySQLDatabase):
+        """Create repo with DB helper."""
         self._db = db
 
     def save(self, user: User) -> User:
+        """Insert a user and return the saved record."""
         conn = self._db.connect()
         cursor = conn.cursor()
 
@@ -26,6 +31,7 @@ class UserRepositoryMySQL(UserRepository):
         return User(id=new_id, name=user.name, email=user.email)
 
     def get_by_id(self, user_id: int) -> Optional[User]:
+        """Fetch a user by id."""
         conn = self._db.connect()
         cursor = conn.cursor()
 
@@ -44,6 +50,7 @@ class UserRepositoryMySQL(UserRepository):
         return User(int(row[0]), row[1], row[2])
 
     def get_by_email(self, email: str) -> Optional[User]:
+        """Fetch a user by email."""
         conn = self._db.connect()
         cursor = conn.cursor()
 
@@ -62,6 +69,7 @@ class UserRepositoryMySQL(UserRepository):
         return User(int(row[0]), row[1], row[2])
 
     def get_all(self) -> list:
+        """Return all users."""
         conn = self._db.connect()
         cursor = conn.cursor()
 

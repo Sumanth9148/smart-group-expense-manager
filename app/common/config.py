@@ -1,9 +1,12 @@
+"""App configuration helpers."""
+
 import os
 from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
 class DatabaseConfig:
+    """Simple container for DB settings."""
     host: str
     user: str
     password: str
@@ -11,10 +14,7 @@ class DatabaseConfig:
 
 
 def load_database_config() -> DatabaseConfig:
-    """
-    Loads database configuration from environment variables.
-    Works for both local runs and Docker.
-    """
+    """Load DB settings from environment variables."""
     return DatabaseConfig(
         host=os.getenv("DB_HOST", "localhost"),
         user=os.getenv("DB_USER", "root"),
