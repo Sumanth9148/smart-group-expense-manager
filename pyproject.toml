@@ -1,0 +1,90 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smart-group-expense-manager"
+version = "1.0.0"
+description = "A CLI application for managing group expenses with settlements"
+requires-python = ">=3.10"
+dependencies = [
+    "mysql-connector-python>=8.3.0",
+    "python-json-logger>=2.0.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "black>=24.1.1",
+    "ruff>=0.2.0",
+]
+
+# =============================
+# BLACK FORMATTER CONFIG
+# =============================
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | migrations
+)/
+'''
+
+# ===========================
+# RUFF LINTER CONFIG
+# ===========================
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",      # Pycodestyle errors
+    "W",      # Pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "COM",    # flake8-commas
+    "SIM",    # flake8-simplify
+]
+
+ignore = [
+    "E501",   # Line too long (Black handles this)
+    "COM812", # Missing trailing comma (conflicts with Black)
+]
+
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "venv",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+# ===========================
+# PYTEST CONFIG
+# ===========================
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"

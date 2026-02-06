@@ -1,7 +1,6 @@
 """Menu-driven CLI entry point and handlers."""
 
 import asyncio
-import logging
 
 from app.common.logger import setup_logging
 from app.bootstrap.container import build_services
@@ -62,23 +61,44 @@ class MenuDrivenInterface:
     def create_user(self):
         """Collect input and create a user."""
         name = input("Enter user name: ").strip()
-        if not name:
-            print(" User name cannot be empty!")
-            return
-
         email = input("Enter user email: ").strip()
-        if not email:
-            print(" Email cannot be empty!")
+
+        if not name or not email:
+            print(" Name and Email cannot be empty!")
             return
 
         try:
-            user = self.services["user"].create_user(name, email)
+            normalized_name = name.strip().lower()
+            normalized_email = email.strip().lower()
+
+            existing_by_email = self.services["user"].get_user_by_email(normalized_email)
+            if existing_by_email:
+                print(" User already exists with this email!")
+                print(f"   ID: {existing_by_email.id}")
+                print(f"   Name: {existing_by_email.name}")
+                print(f"   Email: {existing_by_email.email}")
+                return
+
+            existing_by_name = None
+            for user in self.services["user"].list_users():
+                if user.name.strip().lower() == normalized_name:
+                    existing_by_name = user
+                    break
+
+            if existing_by_name:
+                print(" User already exists with this name!")
+                print(f"   ID: {existing_by_name.id}")
+                print(f"   Name: {existing_by_name.name}")
+                print(f"   Email: {existing_by_name.email}")
+                return
+
+            user = self.services["user"].create_user(name, normalized_email)
             print(" User created successfully!")
             print(f"   ID: {user.id}")
             print(f"   Name: {user.name}")
             print(f"   Email: {user.email}")
         except ValueError as e:
-            print(f" {e}")
+            print(f" Error creating user: {e}")
         except Exception as e:
             print(f" Error creating user: {e}")
 
@@ -159,7 +179,7 @@ class MenuDrivenInterface:
             self.services["group"].add_member(int(group_id), int(user_id))
             print(" Member added to group successfully!")
         except ValueError:
-            print(" Invalid number format!")
+            print(" User Already Exists !")
         except Exception as e:
             print(f" Error adding member: {e}")
 
@@ -254,25 +274,22 @@ class MenuDrivenInterface:
     def add_expense(self):
         """Collect input and add a new expense."""
         try:
-            groups = self.services["group"].list_groups()
-            if not groups:
-                print("\n No groups available. Create a group first.")
-                return
-
-            users = self.services["user"].list_users()
-            if not users:
-                print("\n No users available. Create users first.")
-                return
-
-            print("\n--- Available Groups ---")
-            for group in groups:
-                print(f"{group.id}. {group.name}")
-
-            print("\n--- Available Users ---")
-            for user in users:
-                print(f"{user.id}. {user.name} ({user.email})")
-
             group_id = input("\nEnter group ID: ").strip()
+            if not group_id:
+                print(" Group ID cannot be empty!")
+                return
+
+            group_id = int(group_id)
+            group_details = self.services["group"].get_group_details(group_id)
+            if not group_details.members:
+                print(" This group has no members. Add members first.")
+                return
+
+            print("\n--- Group Details ---")
+            print(f"Group: {group_details.name} ({group_details.id})")
+            print("Members:")
+            for member in group_details.members:
+                print(f"  {member.id}. {member.name} ({member.email})")
             paid_by_id = input("Enter payer user ID: ").strip()
             amount = input("Enter expense amount: ").strip()
             participants_str = input("Enter participant IDs (comma-separated): ").strip()
@@ -282,7 +299,26 @@ class MenuDrivenInterface:
                 print(" All fields are required!")
                 return
 
-            participants = [int(uid.strip()) for uid in participants_str.split(",") if uid.strip()]
+            group_member_ids = {m.id for m in group_details.members}
+
+            if int(paid_by_id) not in group_member_ids:
+                print(" Payer must be a member of the selected group.")
+                return
+
+            participants = [
+                int(uid.strip()) for uid in participants_str.split(",") if uid.strip()
+            ]
+            if not participants:
+                print(" At least one participant is required.")
+                return
+
+            invalid_participants = [uid for uid in participants if uid not in group_member_ids]
+            if invalid_participants:
+                print(
+                    " Participants must be members of the selected group. "
+                    f"Invalid IDs: {', '.join(map(str, invalid_participants))}"
+                )
+                return
 
             split_data = None
             if split_type == "percentage":
@@ -367,7 +403,13 @@ class MenuDrivenInterface:
                 print(" Group ID cannot be empty!")
                 return
 
-            expenses = self.services["expense"].list_expenses(int(group_id))
+            try:
+                group_id = int(group_id)
+            except ValueError:
+                print(" Invalid number format!")
+                return
+
+            expenses = self.services["expense"].list_expenses(group_id)
 
             if not expenses:
                 print("No expenses recorded for this group.")
@@ -387,8 +429,11 @@ class MenuDrivenInterface:
                     )
                     print(f"   Participants: {participants_str}")
                 print("   Shares:")
-                for user, value in expense.split().items():
-                    print(f"      - {user.name} ({user.id}): {value:.2f}")
+                try:
+                    for user, value in expense.split().items():
+                        print(f"      - {user.name} ({user.id}): {value:.2f}")
+                except Exception as split_err:
+                    print(f"      (Error loading shares: {split_err})")
         except ValueError:
             print(" Invalid number format!")
         except Exception as e:
@@ -413,8 +458,18 @@ class MenuDrivenInterface:
                 print(" Group ID cannot be empty!")
                 return
 
-            group_details = self.services["group"].get_group_details(int(group_id))
-            balances = self.services["settlement"].get_balances(int(group_id))
+            try:
+                group_id = int(group_id)
+            except ValueError:
+                print(" Invalid number format!")
+                return
+
+            try:
+                group_details = self.services["group"].get_group_details(group_id)
+                balances = self.services["settlement"].get_balances(group_id)
+            except ValueError as ve:
+                print(f" Error: {ve}")
+                return
 
             if not balances:
                 print("No balances found for this group.")
@@ -427,8 +482,6 @@ class MenuDrivenInterface:
                 balance_status = "owes" if balance < 0 else "is owed"
                 print(f"   {user.name} ({user.id}): {abs(balance):.2f} {balance_status}")
 
-        except ValueError:
-            print(" Invalid number format!")
         except Exception as e:
             print(f" Error retrieving balances: {e}")
 
@@ -465,8 +518,18 @@ class MenuDrivenInterface:
                 print(" Group ID cannot be empty!")
                 return
 
-            group_details = self.services["group"].get_group_details(int(group_id))
-            suggestions = self.services["settlement"].get_settlement_suggestions(int(group_id))
+            try:
+                group_id = int(group_id)
+            except ValueError:
+                print(" Invalid number format!")
+                return
+
+            try:
+                group_details = self.services["group"].get_group_details(group_id)
+                suggestions = self.services["settlement"].get_settlement_suggestions(group_id)
+            except ValueError as ve:
+                print(f" Error: {ve}")
+                return
 
             print(f"\n--- Settlement Suggestions for {group_details.name} ---")
             print(f"Group Members: {', '.join(f'{m.name} ({m.id})' for m in group_details.members)}")
@@ -476,12 +539,25 @@ class MenuDrivenInterface:
                 return
 
             print("\nSuggested Payments:")
-            for payer, receiver, amount in suggestions:
-                print(f"   {payer.name} ({payer.id}) ➜ {receiver.name} ({receiver.id}): {amount:.2f}")
-        except ValueError:
-            print(" Invalid number format!")
+            for idx, (payer, receiver, amount) in enumerate(suggestions, 1):
+                print(f"   {idx}. {payer.name} ({payer.id}) ➜ {receiver.name} ({receiver.id}): {amount:.2f}")
+
+            post_balances = self.services["settlement"].get_balances_after_settlement(group_id)
+            print("\nBalances After Settlement (simulated):")
+            for user, amount in post_balances.items():
+                print(f"   {user.name} ({user.id}): {amount:.2f}")
+
+            # Ask if user wants to record settlements
+            record = input("\nRecord these settlements in database? (y/n): ").strip().lower()
+            if record == 'y':
+                for payer, receiver, amount in suggestions:
+                    self.services["settlement"].record_settlement(
+                        group_id, payer.id, receiver.id, amount
+                    )
+                print("\n Settlements recorded successfully!")
         except Exception as e:
             print(f" Error computing suggestions: {e}")
+
 
     # Main loop
     def run(self):

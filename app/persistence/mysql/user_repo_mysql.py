@@ -55,7 +55,7 @@ class UserRepositoryMySQL(UserRepository):
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT id, name, email FROM users WHERE email = %s",
+            "SELECT id, name, email FROM users WHERE LOWER(email) = LOWER(%s)",
             (email,)
         )
 

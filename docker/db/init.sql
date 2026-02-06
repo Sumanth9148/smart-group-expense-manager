@@ -1,5 +1,6 @@
 -- Re-runnable init (drops in dependency order)
 -- Creates core tables for users, groups, expenses, and splits
+DROP TABLE IF EXISTS settlements;
 DROP TABLE IF EXISTS expense_splits;
 DROP TABLE IF EXISTS expenses;
 DROP TABLE IF EXISTS group_members;
@@ -70,4 +71,23 @@ CREATE TABLE expense_splits (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   UNIQUE KEY uniq_expense_user (expense_id, user_id),
   INDEX idx_splits_user (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Settlements: tracks payments made to settle debts
+CREATE TABLE settlements (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  group_id INT UNSIGNED NOT NULL,
+  debtor_id INT UNSIGNED NOT NULL,
+  creditor_id INT UNSIGNED NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  settlement_date DATE NOT NULL DEFAULT (CURRENT_DATE),
+  PRIMARY KEY (id),
+  CONSTRAINT fk_settlements_group
+    FOREIGN KEY (group_id) REFERENCES expense_groups(id) ON DELETE CASCADE,
+  CONSTRAINT fk_settlements_debtor
+    FOREIGN KEY (debtor_id) REFERENCES users(id) ON DELETE CASCADE,
+  CONSTRAINT fk_settlements_creditor
+    FOREIGN KEY (creditor_id) REFERENCES users(id) ON DELETE CASCADE,
+  INDEX idx_settlements_group (group_id),
+  INDEX idx_settlements_date (settlement_date)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

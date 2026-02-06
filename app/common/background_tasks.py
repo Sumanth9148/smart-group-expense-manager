@@ -1,5 +1,4 @@
 import asyncio
-import asyncio
 import logging
 """Background tasks that run alongside the CLI."""
 
@@ -18,7 +17,7 @@ async def periodic_balance_logger(
     logger.info(f"Background balance logger started (interval={interval_seconds}s)")  
 
     try:
-        # Loop forever until task is cancelled
+        
         while True:
             try:
                 # Fetch all groups and compute balances

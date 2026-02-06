@@ -1,0 +1,187 @@
+2026-02-05 12:28:28,109 | INFO | root | Logging initialized
+2026-02-05 12:29:04,492 | INFO | app.services.user_service | Creating user: sameer (sameer@gmail.com)
+2026-02-05 12:29:44,072 | INFO | app.services.user_service | Creating user: rahul (rahul@gmail.com)
+2026-02-05 12:29:57,426 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-05 12:31:28,341 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1000.0 | split=equal
+2026-02-05 12:33:01,408 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1000.0 | split=equal
+2026-02-05 12:34:43,661 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-05 12:34:43,703 | INFO | app.common.background_tasks | [Group: goa | 1] Balances → sameer: 1500.00, rahul: -1500.00
+2026-02-05 12:34:43,711 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-05 12:36:33,121 | INFO | root | Logging initialized
+2026-02-05 12:36:48,663 | INFO | app.services.user_service | Creating user: sam (sam@gmail.com)
+2026-02-05 12:37:03,793 | INFO | app.services.user_service | Creating user: rahul (rahul@gmail.com)
+2026-02-05 12:37:21,129 | INFO | app.services.group_service | Creating group | name=bihar
+2026-02-05 12:38:09,678 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1000.0 | split=equal
+2026-02-05 12:40:04,045 | INFO | app.services.group_service | Creating group | name=karnataka
+2026-02-05 12:40:58,356 | INFO | app.services.expense_service | Adding expense | group=2 | amount=1000.0 | split=equal
+2026-02-05 12:44:15,930 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-05 12:44:15,966 | INFO | app.common.background_tasks | [Group: bihar | 1] Balances → sam: 500.00, rahul: -500.00
+2026-02-05 12:44:15,985 | INFO | app.common.background_tasks | [Group: karnataka | 2] Balances → rahul: -1000.00, sam: 1000.00
+2026-02-05 12:44:15,986 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-05 12:46:34,699 | INFO | root | Logging initialized
+2026-02-05 12:46:51,331 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-05 12:46:51,388 | INFO | app.common.background_tasks | [Group: bihar | 1] Balances → sam: 500.00, rahul: -500.00
+2026-02-05 12:46:51,417 | INFO | app.common.background_tasks | [Group: karnataka | 2] Balances → rahul: -1000.00, sam: 1000.00
+2026-02-05 12:46:51,420 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-05 12:48:08,899 | INFO | root | Logging initialized
+2026-02-05 12:49:43,553 | INFO | app.services.expense_service | Adding expense | group=2 | amount=2000.0 | split=percentage
+2026-02-05 16:16:47,548 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-05 16:16:47,584 | INFO | app.common.background_tasks | [Group: bihar | 1] Balances → sam: 500.00, rahul: -500.00
+2026-02-05 16:16:47,607 | INFO | app.common.background_tasks | [Group: karnataka | 2] Balances → rahul: -500.00, sam: 500.00
+2026-02-05 16:16:47,616 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 04:48:11,328 | INFO | root | Logging initialized
+2026-02-06 04:48:42,753 | INFO | app.services.user_service | Creating user: sam (sam@gmail.com)
+2026-02-06 04:48:57,943 | INFO | app.services.user_service | Creating user: rahul (rahul@gmail.com)
+2026-02-06 04:49:10,615 | INFO | app.services.group_service | Creating group | name=dubai
+2026-02-06 04:50:53,516 | INFO | app.services.expense_service | Adding expense | group=1 | amount=2000.0 | split=equal
+2026-02-06 04:53:28,114 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 04:53:28,152 | INFO | app.common.background_tasks | [Group: dubai | 1] Balances → sam: 1000.00, rahul: -1000.00
+2026-02-06 04:53:28,154 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 05:26:49,173 | INFO | root | Logging initialized
+2026-02-06 05:27:22,713 | INFO | app.services.user_service | Creating user: xxx (k@gmail.com)
+2026-02-06 05:28:22,361 | INFO | app.services.group_service | Creating group | name=Epam
+2026-02-06 05:32:52,361 | INFO | app.services.expense_service | Adding expense | group=2 | amount=400.0 | split=equal
+2026-02-06 05:40:49,905 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 05:40:49,940 | INFO | app.common.background_tasks | [Group: dubai | 1] Balances → sam: 1000.00, rahul: -1000.00
+2026-02-06 05:40:49,961 | INFO | app.common.background_tasks | [Group: Epam | 2] Balances → sam: -200.00, rahul: -200.00, xxx: 400.00
+2026-02-06 05:40:49,970 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 05:41:50,315 | INFO | root | Logging initialized
+2026-02-06 05:41:52,206 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 05:41:52,250 | INFO | app.common.background_tasks | [Group: dubai | 1] Balances → sam: 1000.00, rahul: -1000.00
+2026-02-06 05:41:52,270 | INFO | app.common.background_tasks | [Group: Epam | 2] Balances → sam: -200.00, rahul: -200.00, xxx: 400.00
+2026-02-06 05:41:52,271 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 06:47:09,617 | INFO | root | Logging initialized
+2026-02-06 06:47:27,727 | INFO | app.services.user_service | Creating user: 11 (111)
+2026-02-06 06:47:47,653 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 06:47:47,668 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 06:52:09,576 | INFO | root | Logging initialized
+2026-02-06 06:52:59,588 | INFO | app.services.user_service | Creating user: sam (sam)
+2026-02-06 06:54:39,436 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 06:54:39,455 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 06:56:21,983 | INFO | root | Logging initialized
+2026-02-06 06:56:36,988 | INFO | app.services.user_service | Creating user: sam (sam)
+2026-02-06 06:56:44,188 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 06:56:44,210 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 06:59:04,726 | INFO | root | Logging initialized
+2026-02-06 06:59:23,282 | INFO | app.services.user_service | Creating user: sam (sam)
+2026-02-06 07:02:45,460 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 07:02:45,482 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 07:06:42,746 | INFO | root | Logging initialized
+2026-02-06 07:08:09,978 | INFO | app.services.user_service | Creating user: sam (sam@gmail.com)
+2026-02-06 07:08:26,152 | INFO | app.services.user_service | Creating user: vansh (vansh@email.com)
+2026-02-06 07:08:39,137 | INFO | app.services.user_service | Creating user: sumanth (sumanth@gmail.com)
+2026-02-06 07:08:59,400 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-06 07:12:08,172 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1.0 | split=equal
+2026-02-06 07:19:15,258 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 07:19:15,299 | ERROR | app.common.background_tasks | Error while recomputing balances
+Traceback (most recent call last):
+  File "/app/app/common/background_tasks.py", line 27, in periodic_balance_logger
+    balances = settlement_service.get_balances(group.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/services/settlement_service.py", line 32, in get_balances
+    return self._calculator.calculate_balances(group)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/domain/domain_services/settlement_calculator.py", line 16, in calculate_balances
+    splits = expense.split()
+             ^^^^^^^^^^^^^^^
+  File "/app/app/domain/entities/expense.py", line 33, in split
+    return self.split_strategy.split(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/domain/split_strategies/custom.py", line 22, in split
+    raise ValueError("Custom split amounts must match expense total")
+ValueError: Custom split amounts must match expense total
+2026-02-06 07:19:15,306 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 07:22:17,992 | INFO | root | Logging initialized
+2026-02-06 07:22:31,470 | INFO | app.services.user_service | Creating user: sam (sam@gmail.com)
+2026-02-06 07:22:45,331 | INFO | app.services.user_service | Creating user: vansh (vansh@gmail.com)
+2026-02-06 07:22:55,167 | INFO | app.services.user_service | Creating user: sumanth (sumanth@gmail.com)
+2026-02-06 07:23:06,152 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-06 07:23:55,830 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 07:23:55,864 | INFO | app.common.background_tasks | [Group: goa | 1] Balances → no balances
+2026-02-06 07:23:55,866 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 07:26:09,445 | INFO | root | Logging initialized
+2026-02-06 07:26:18,862 | INFO | app.services.user_service | Creating user: sam (sam@email.com)
+2026-02-06 07:26:47,424 | INFO | app.services.user_service | Creating user: vansh (vansh@gmail.com)
+2026-02-06 07:27:38,061 | INFO | app.services.user_service | Creating user: sumanth (sumanth@gmail.com)
+2026-02-06 07:27:45,829 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-06 07:33:44,451 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1.0 | split=equal
+2026-02-06 07:38:58,851 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 07:38:58,921 | ERROR | app.common.background_tasks | Error while recomputing balances
+Traceback (most recent call last):
+  File "/app/app/common/background_tasks.py", line 27, in periodic_balance_logger
+    balances = settlement_service.get_balances(group.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/services/settlement_service.py", line 32, in get_balances
+    return self._calculator.calculate_balances(group)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/domain/domain_services/settlement_calculator.py", line 16, in calculate_balances
+    splits = expense.split()
+             ^^^^^^^^^^^^^^^
+  File "/app/app/domain/entities/expense.py", line 33, in split
+    return self.split_strategy.split(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/domain/split_strategies/custom.py", line 22, in split
+    raise ValueError("Custom split amounts must match expense total")
+ValueError: Custom split amounts must match expense total
+2026-02-06 07:38:58,927 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 07:40:28,389 | INFO | root | Logging initialized
+2026-02-06 07:40:42,850 | INFO | app.services.user_service | Creating user: sam (sam@email.com)
+2026-02-06 07:40:52,392 | INFO | app.services.user_service | Creating user: sum (sum@email.com)
+2026-02-06 07:41:06,753 | INFO | app.services.user_service | Creating user: bob (bob@email.com)
+2026-02-06 07:41:14,442 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-06 07:42:06,238 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1.0 | split=equal
+2026-02-06 07:42:32,579 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 07:42:32,622 | ERROR | app.common.background_tasks | Error while recomputing balances
+Traceback (most recent call last):
+  File "/app/app/common/background_tasks.py", line 27, in periodic_balance_logger
+    balances = settlement_service.get_balances(group.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/services/settlement_service.py", line 32, in get_balances
+    return self._calculator.calculate_balances(group)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/domain/domain_services/settlement_calculator.py", line 16, in calculate_balances
+    splits = expense.split()
+             ^^^^^^^^^^^^^^^
+  File "/app/app/domain/entities/expense.py", line 33, in split
+    return self.split_strategy.split(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/domain/split_strategies/custom.py", line 22, in split
+    raise ValueError("Custom split amounts must match expense total")
+ValueError: Custom split amounts must match expense total
+2026-02-06 07:42:32,625 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 07:46:20,636 | INFO | root | Logging initialized
+2026-02-06 07:46:30,682 | INFO | app.services.user_service | Creating user: sam (sam@gmail.com)
+2026-02-06 07:46:41,064 | INFO | app.services.user_service | Creating user: sumanth (sumanth@gmail.com)
+2026-02-06 07:46:46,931 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-06 07:47:19,564 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1000.0 | split=equal
+2026-02-06 08:25:23,241 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 08:25:23,316 | INFO | app.common.background_tasks | [Group: goa | 1] Balances → sam: 500.00, sumanth: -500.00
+2026-02-06 08:25:23,319 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 08:29:52,678 | INFO | root | Logging initialized
+2026-02-06 08:30:17,675 | INFO | app.services.user_service | Creating user: sam (sam@gmail.com)
+2026-02-06 08:30:29,954 | INFO | app.services.user_service | Creating user: mosh (mosh@gmail.com)
+2026-02-06 08:30:43,349 | INFO | app.services.user_service | Creating user: kiran (kiran@gmail.com)
+2026-02-06 08:30:52,945 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-06 08:32:58,689 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1000.0 | split=equal
+2026-02-06 08:43:58,719 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 08:43:58,783 | ERROR | app.common.background_tasks | Error while recomputing balances
+Traceback (most recent call last):
+  File "/app/app/common/background_tasks.py", line 27, in periodic_balance_logger
+    balances = settlement_service.get_balances(group.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/services/settlement_service.py", line 39, in get_balances
+    balances[settlement.debtor] = balances.get(settlement.debtor, 0) + settlement.amount
+                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for +: 'float' and 'decimal.Decimal'
+2026-02-06 08:43:58,787 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 08:46:34,432 | INFO | root | Logging initialized
+2026-02-06 08:46:46,169 | INFO | app.services.user_service | Creating user: sam (sam@gmail.com)
+2026-02-06 08:46:57,012 | INFO | app.services.user_service | Creating user: mosh (mosh@gmail.com)
+2026-02-06 08:47:07,629 | INFO | app.services.user_service | Creating user: kiran (kiran@gmail.com)
+2026-02-06 08:47:24,048 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-06 08:48:18,065 | INFO | app.services.expense_service | Adding expense | group=1 | amount=1000.0 | split=equal
+2026-02-06 08:52:34,515 | INFO | app.services.expense_service | Adding expense | group=1 | amount=900.0 | split=percentage
+2026-02-06 08:55:29,820 | INFO | app.services.expense_service | Adding expense | group=1 | amount=500.0 | split=custom
+2026-02-06 08:56:04,266 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 08:56:04,315 | INFO | app.common.background_tasks | [Group: goa | 1] Balances → sam: 0.00, mosh: 0.00, kiran: 0.01
+2026-02-06 08:56:04,317 | INFO | app.common.background_tasks | Background balance logger stopped

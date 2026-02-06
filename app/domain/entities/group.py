@@ -17,8 +17,9 @@ class Group:
 
     def add_member(self, user: User) -> None:
         """Add a user to the group."""
-        if user in self._members:
-            raise ValueError("User already in group")
+        for member in self._members:
+            if member.id == user.id:
+                raise ValueError(f"User '{user.name}' is already a member of this group")
         self._members.append(user)
 
     def remove_member(self, user: User) -> None:

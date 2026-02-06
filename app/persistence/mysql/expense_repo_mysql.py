@@ -5,6 +5,8 @@ from app.domain.entities.expense import Expense
 from app.domain.entities.user import User
 from app.domain.repositories.expense_repository import ExpenseRepository
 from app.domain.split_strategies.custom import CustomSplitStrategy
+from app.domain.split_strategies.equal import EqualSplitStrategy
+from app.domain.split_strategies.percentage import PercentageSplitStrategy
 from .db import MySQLDatabase
 
 
@@ -88,7 +90,8 @@ class ExpenseRepositoryMySQL(ExpenseRepository):
             if not participants:
                 continue
 
-            strategy = CustomSplitStrategy(amounts)
+            # Reconstruct strategy based on split_type stored in DB
+            strategy = self._create_strategy(split_type, amounts)
             expenses.append(
                 Expense(
                     expense_id=int(expense_id),
@@ -102,6 +105,15 @@ class ExpenseRepositoryMySQL(ExpenseRepository):
 
         conn.close()
         return expenses
+
+    def _create_strategy(self, split_type: str, amounts: Dict[User, float]):
+        """Create appropriate strategy based on split_type."""
+        if split_type == "EqualSplitStrategy":
+            return EqualSplitStrategy()
+        elif split_type == "PercentageSplitStrategy":
+            return PercentageSplitStrategy(amounts)
+        else:  # CustomSplitStrategy
+            return CustomSplitStrategy(amounts)
 
     def _fetch_expense_splits(
         self,

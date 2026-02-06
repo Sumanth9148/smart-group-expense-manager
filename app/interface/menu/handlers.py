@@ -31,10 +31,10 @@ class MenuHandlers:
 
     # -------------------- USER --------------------
 
-    def create_user(self, name: str) -> None:
+    def create_user(self, name: str, email: str) -> None:
         """Create a user via the user service."""
         try:
-            self.user_service.create_user(name)
+            self.user_service.create_user(name, email)
             print(" User created successfully")
         except Exception as e:
             print(f" Failed to create user: {e}")
@@ -162,5 +162,10 @@ class MenuHandlers:
 
             for payer, receiver, amount in suggestions:
                 print(f"- {payer.name} pays {receiver.name} amount {amount:.2f}")
+
+            post_balances = self.settlement_service.get_balances_after_settlement(group_id)
+            print("\nBalances After Settlement (simulated):")
+            for user, amount in post_balances.items():
+                print(f"- {user.name} ({user.id}): {amount:.2f}")
         except Exception as e:
             print(f" Failed to generate settlement: {e}")
