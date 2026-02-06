@@ -10,12 +10,12 @@ def test_create_user():
     user_repo = Mock()
     user_repo.get_by_email.return_value = None
     user_repo.get_all.return_value = []
-    user_repo.save.return_value = User(id=1, name="Alice", email="alice@example.com")
+    user_repo.save.return_value = User(id=1, name="sam", email="sam@gmail.com")
     service = UserService(user_repo)
 
-    user = service.create_user("Alice", "alice@example.com")
+    user = service.create_user("sam", "sam@gmail.com")
 
-    user_repo.get_by_email.assert_called_once_with("alice@example.com")
+    user_repo.get_by_email.assert_called_once_with("sam@gmail.com")
     user_repo.save.assert_called_once()
-    assert user.name == "Alice"
-    assert user.email == "alice@example.com"
+    assert user.name == "sam"
+    assert user.email == "sam@gmail.com"

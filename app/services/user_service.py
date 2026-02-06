@@ -26,7 +26,7 @@ class UserService:
             raise ValueError("User name cannot start with a number")
 
         # Validate email format using regex
-        email_pattern = r'^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        email_pattern = r'^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z.-]+\.[a-zA-Z]{2,}$'
         if not re.match(email_pattern, normalized_email):
             raise ValueError("Invalid email format. Email must be in format: user@example.com")
 

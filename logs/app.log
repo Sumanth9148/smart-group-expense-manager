@@ -185,3 +185,28 @@ TypeError: unsupported operand type(s) for +: 'float' and 'decimal.Decimal'
 2026-02-06 08:56:04,266 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
 2026-02-06 08:56:04,315 | INFO | app.common.background_tasks | [Group: goa | 1] Balances → sam: 0.00, mosh: 0.00, kiran: 0.01
 2026-02-06 08:56:04,317 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 11:07:47,862 | INFO | root | Logging initialized
+2026-02-06 11:09:01,773 | INFO | app.services.user_service | Creating user: akshit (akshit@gamil.com)
+2026-02-06 11:14:42,167 | INFO | app.services.user_service | Creating user: sumanth (sumanth@123.com)
+2026-02-06 11:19:16,748 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 11:19:16,813 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 11:19:58,846 | INFO | root | Logging initialized
+2026-02-06 11:20:22,035 | INFO | app.services.user_service | Creating user: abc (abc@123.com)
+2026-02-06 11:20:34,267 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 11:20:34,291 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 11:21:32,796 | INFO | root | Logging initialized
+2026-02-06 11:21:43,753 | INFO | app.services.user_service | Creating user: abc (abc@123.com)
+2026-02-06 11:22:34,831 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 11:22:34,876 | INFO | app.common.background_tasks | Background balance logger stopped
+2026-02-06 11:24:55,055 | INFO | root | Logging initialized
+2026-02-06 11:27:01,464 | INFO | app.services.user_service | Creating user: sam (sam@gmail.com)
+2026-02-06 11:27:13,467 | INFO | app.services.user_service | Creating user: akshith (akshith@gmail.com)
+2026-02-06 11:27:28,949 | INFO | app.services.user_service | Creating user: sumanth (sumanth@gmail.com)
+2026-02-06 11:27:56,848 | INFO | app.services.group_service | Creating group | name=goa
+2026-02-06 11:45:24,910 | INFO | app.services.expense_service | Adding expense | group=1 | amount=3000.0 | split=equal
+2026-02-06 11:49:58,449 | INFO | app.services.expense_service | Adding expense | group=1 | amount=3000.0 | split=custom
+2026-02-06 11:51:46,028 | INFO | app.services.expense_service | Adding expense | group=1 | amount=500.0 | split=equal
+2026-02-06 11:52:35,607 | INFO | app.services.expense_service | Adding expense | group=1 | amount=2000.0 | split=percentage
+2026-02-06 15:05:19,784 | INFO | app.common.background_tasks | Background balance logger started (interval=30s)
+2026-02-06 15:05:19,962 | INFO | app.common.background_tasks | [Group: goa | 1] Balances → sam: 2750.00, akshith: 0.00, sumanth: -2750.00
+2026-02-06 15:05:19,968 | INFO | app.common.background_tasks | Background balance logger stopped

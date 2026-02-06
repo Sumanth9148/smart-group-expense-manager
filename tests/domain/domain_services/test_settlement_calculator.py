@@ -8,7 +8,7 @@ from app.domain.split_strategies.equal import EqualSplitStrategy
 
 def test_settlement_calculation(user_a, user_b):
     """Verify balances after one equal split expense."""
-    group = Group(group_id=1, name="Trip")
+    group = Group(group_id=1, name="goa")
 
     group.add_member(user_a)
     group.add_member(user_b)

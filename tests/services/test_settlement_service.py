@@ -9,7 +9,7 @@ from app.domain.entities.group import Group
 def test_get_balances():
     """Verify balances are returned as a dict."""
     group_id = 1
-    group = Group(group_id, "Trip")
+    group = Group(group_id, "goa")
 
     group_repo = Mock()
     group_repo.get_by_id.return_value = group

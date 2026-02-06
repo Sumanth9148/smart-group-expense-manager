@@ -12,7 +12,7 @@ def test_add_member():
     user_id = 2
 
     group = Group(group_id, "Test Group")
-    user = User(user_id, "Alice", "alice@example.com")
+    user = User(user_id, "sam", "sam@gmail.com")
 
     group_repo = Mock()
     user_repo = Mock()
